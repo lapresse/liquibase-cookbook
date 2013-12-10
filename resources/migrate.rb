@@ -37,5 +37,9 @@ def initialize(*args)
 end
 
 def connection_url
-  "jdbc:#{adapter}://#{connection[:host]}:#{connection[:port]}/#{connection[:database]}"
+  if adapter == :oracle
+    "jdbc:#{adapter}:thin:@#{connection[:host]}:#{connection[:port]}:#{connection[:database]}"
+  else
+    "jdbc:#{adapter}://#{connection[:host]}:#{connection[:port]}/#{connection[:database]}"
+  end
 end
